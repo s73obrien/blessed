@@ -39,6 +39,7 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "find": "^0.3.0"
+    "find": "^0.3.0",
+    "string-width": "^4.1.0"
   }
 }

@@ -79,7 +79,65 @@ export function escape(text: string) {
 export function parseTags(text: string, screen: Screen) {
   // return helpers.Element.prototype._parseTags.call(
   //   { parseTags: true, screen: screen || helpers.Screen.global }, text);
-  ??
+  // ??
 }
 
-export function generateTags(style: )
+export function generateTags(style: any): {open: string, close: string};
+export function generateTags(style: any, text: string): string;
+export function generateTags(style: any, text?: string): {open: string, close: string} | string {
+  let open = '';
+  let close = '';
+
+  Object.keys(style || {}).forEach(key => {
+    let value = style[key];
+    if (typeof value === 'string') {
+      value = value.replace(/^light(?!-)/, 'light-');
+      value = value.replace(/^bright(?!-)/, 'bright-');
+      open = `{${value}-${key}}${open}`;
+      close = `${close}{/${value}-${key}}`;
+    } else {
+      if (value === true) {
+        open = `{${key}}${open}`;
+        close = `${close}{/${key}}`;
+      }
+    }
+  });
+
+  if (text) {
+    return open + text + close;
+  }
+
+  return {
+    open,
+    close
+  };
+}
+
+export function attrToBinary(style: any, element: any) {
+  // return helpers.Element.prototype.sattr.call(element || {}, style);
+}
+
+export function stripTags(text: string): string {
+  if (text) {
+    return text.replace(/{(\/?)([\w\-,;!#]*)}/g, '')
+    .replace(/\x1b\[[\d;]*m/g, '');
+  } else {
+    return '';
+  }
+}
+
+export function cleanTags(text: string): string {
+  return stripTags(text).trim();
+}
+
+export function dropUnicode(text: string): string {
+  if (text) {
+    return text
+    // .replace(unicode.chars.all, '??')
+    // .replace(unicode.chars.combining, '')
+    // .replace(unicode.chars.surrogate, '?');
+  } else {
+    return '';
+  }
+}
+
