@@ -39,7 +39,11 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
+    "chalk": "^2.4.2",
     "find": "^0.3.0",
-    "string-width": "^4.1.0"
+    "inversify": "^5.0.1",
+    "reflect-metadata": "^0.1.13",
+    "string-width": "^4.1.0",
+    "winston": "^3.2.1"
   }
 }
